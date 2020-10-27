@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <script>
+      const pd = /^(localhost:3333)$/; // 生产环境
+      const dp = /^(localhost:3000)$/; // 开发环境
+      const hostName = document.location.hostname;
+      let ENV;
+      if (pd.test(hostName)) {
+        ENV = 'pd';
+      } else {
+        ENV = 'dp'
+      }
+      window.ENV = ENV;
+    </script>
   </head>
   <body>
     <noscript>

@@ -22,3 +22,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### 技术选型：VUE + Element UI
+See (https://juejin.im/post/6844903913553035272)
+
