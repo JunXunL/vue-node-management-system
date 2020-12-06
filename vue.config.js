@@ -1,3 +1,10 @@
+/*
+ * @Descripttion: 
+ * @Author: Irene.Z
+ * @Date: 2020-10-27 16:21:22
+ * @LastEditTime: 2020-12-02 17:50:53
+ * @FilePath: \vue-node-management-system\vue.config.js
+ */
 const path = require("path");
 const env = process.env.npm_config_env; // process.env属性返回的是一个包含用户环境信息的对象，可以区分开发环境或正式环境的依据
 let nodeServer = "http://localhost:3000";
@@ -12,7 +19,7 @@ module.exports = {
     const srcDir = path.resolve(__dirname, "src");
     const aliasExt = {
       // @ 是 src/ 的别名
-      "@views": path.resolve(__dirname, "views"), // views 文件夹
+      "@views": path.resolve(srcDir, "views"), // views 文件夹
       "@assets": path.resolve(srcDir, "assets"),
       "@components": path.resolve(srcDir, "components"),
       "@constants": path.resolve(srcDir, "constants"),
