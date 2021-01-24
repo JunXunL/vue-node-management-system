@@ -129,7 +129,8 @@ module.exports = {
     'camelcase': [0, {
       'properties': 'always'
     }],
-    'comma-dangle': [2, 'never'],
+    'comma-dangle': 0,
+    // 'comma-dangle': [2, 'never'], // 对象字面量项尾不能有逗号
     'comma-spacing': [2, {
       'before': false,
       'after': true
@@ -138,7 +139,8 @@ module.exports = {
     'constructor-super': 2,
     'curly': [2, 'multi-line'],
     'dot-location': [2, 'property'],
-    'eol-last': 2,
+    'eol-last': 0, // 文件以单一的换行符结束，多加一行
+    // 'eol-last': 2,
     'eqeqeq': ['off'], // 不需要强制使用全等
     // 'eqeqeq': ["error", "always", {"null": "ignore"}], // == 强制转换 ===
     'generator-star-spacing': [2, {
@@ -221,7 +223,7 @@ module.exports = {
     'no-self-compare': 2,
     'no-sequences': 2,
     'no-shadow-restricted-names': 2,
-    'no-spaced-func': 2,
+    'no-spaced-func': 2, // 'function'前后不要加空格
     'no-sparse-arrays': 2,
     'no-this-before-super': 2,
     'no-throw-literal': 2,
