@@ -2,7 +2,7 @@
  * @Descripttion: 
  * @Author: Irene.Z
  * @Date: 2020-10-27 16:21:22
- * @LastEditTime: 2020-12-02 17:50:53
+ * @LastEditTime: 2020-12-15 00:19:14
  * @FilePath: \vue-node-management-system\vue.config.js
  */
 const path = require("path");
@@ -23,7 +23,8 @@ module.exports = {
       "@assets": path.resolve(srcDir, "assets"),
       "@components": path.resolve(srcDir, "components"),
       "@constants": path.resolve(srcDir, "constants"),
-      "@store": path.resolve(srcDir, "store")
+      "@store": path.resolve(srcDir, "store"),
+      "@utils": path.resolve(srcDir, "utils")
     };
     Object.assign(config.resolve.alias, aliasExt);
     if (process.env.NODE_ENV === "production") {

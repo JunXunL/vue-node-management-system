@@ -2,12 +2,13 @@
  * @Descripttion: 
  * @Author: Irene.Z
  * @Date: 2020-10-14 16:53:54
- * @LastEditTime: 2020-12-06 18:20:49
+ * @LastEditTime: 2020-12-15 00:39:45
  * @FilePath: \vue-node-management-system\src\router\index.js
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@views/Home.vue";
+import { getToken } from "@utils/getToken.js"
 
 Vue.use(VueRouter);
 
@@ -104,6 +105,16 @@ const AUser = {
 
 const routes = [
   {
+    path: "/login",
+    name: "Login",
+    component: () => import("@views/entrance/login.vue")
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("@views/entrance/register.vue")
+  },
+  {
     path: "/",
     name: "Home",
     component: Home,
@@ -144,5 +155,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = getToken() ? true : false;
+  console.log("-------isAuthenticated---------", isAuthenticated)
+  /**
+   * to.name：即将要进入的目标 路由对象（Route）的名称；【也可以用to.path !== "/login"】
+   * from：当前导航正要离开的路由；
+   * 进入的不是login页，且没有认证信息 => 进入登录页Login页；
+   */
+  if ((to.name !== 'Login') && (to.name !== 'Register') && !isAuthenticated) next({ name: 'Login' })
+  else next()
+})
 
 export default router;
