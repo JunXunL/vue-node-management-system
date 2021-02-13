@@ -2,7 +2,7 @@
  * @Descripttion: 登录
  * @Author: Irene.Z
  * @Date: 2020-12-07 16:30:43
- * @LastEditTime: 2021-02-14 00:57:06
+ * @LastEditTime: 2021-02-14 02:26:41
  * @FilePath: \vue-node-management-system\src\views\entrance\login.vue
 -->
 <template>
@@ -14,6 +14,14 @@
         </el-form-item>
         <el-form-item label="密码" prop="pass">
           <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="验证码" prop="security">
+          <el-input v-model="ruleForm.security" />
+          <el-image ref="captcha" src="http://localhost:3000/svg" fit="contain" style="width: 100px; height: 100px" @click="getCaptcha">
+            <!-- <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i>
+            </div> -->
+          </el-image>
         </el-form-item>
         <el-form-item class="btn-box">
           <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
@@ -40,7 +48,8 @@ export default {
     return {
       ruleForm: {
         account: '',
-        pass: ''
+        pass: '',
+        security: ''
       },
       rules: {
         account: [
@@ -68,6 +77,11 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    // 获取一个新的图片验证码
+    getCaptcha() {
+      // 每次指定的src要不一样，img才会重新请求，可以使用Date.now()小技巧
+      this.$refs.captcha.src = 'http://localhost:3000/svg?time=' + Date.now()
     }
   }
 }
