@@ -4,6 +4,7 @@
  * 参考文档
  * 【eslint英文文档】https://eslint.org/docs/user-guide/configuring
  * 【eslint中文文档】http://eslint.cn/docs/rules/
+ * 说明文档： https://blog.csdn.net/qq_40741855/article/details/88969563
  */
 
 /**
@@ -191,7 +192,7 @@ module.exports = {
     'no-implied-eval': 2,
     'no-inner-declarations': [2, 'functions'],
     'no-invalid-regexp': 2,
-    'no-irregular-whitespace': 2,
+    'no-irregular-whitespace': 'off', // 关闭，禁止在字符串和注释之外不规则的空白。2,不允许出现不规则的空格
     'no-iterator': 2,
     'no-label-var': 2,
     'no-labels': [2, {
@@ -260,7 +261,8 @@ module.exports = {
     'quotes': [2, 'single', {
       'avoidEscape': true,
       'allowTemplateLiterals': true
-    }],
+    }], // 字符串没有使用单引号(’quotes’: [1, ’single’]) ：String must use singlequote
+    // "singleQuote": true, // 使用单引号
     'semi': 0, // 不检查分号
     // 'semi': [2, 'never'], // 语句结尾不加分号；"semi": [2, "always"],//语句结尾强制加分号
     'semi-spacing': [2, {

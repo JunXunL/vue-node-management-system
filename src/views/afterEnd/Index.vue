@@ -1,8 +1,8 @@
 <!--
- * @Descripttion: 
+ * @Descripttion:
  * @Author: Irene.Z
  * @Date: 2020-11-03 14:38:56
- * @LastEditTime: 2020-12-06 18:14:21
+ * @LastEditTime: 2021-02-16 03:24:19
  * @FilePath: \vue-node-management-system\src\views\afterEnd\Index.vue
 -->
 <template>

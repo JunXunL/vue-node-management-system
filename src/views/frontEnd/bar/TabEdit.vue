@@ -1,8 +1,8 @@
 <!--
- * @Descripttion: 
+ * @Descripttion:
  * @Author: Irene.Z
  * @Date: 2020-11-03 14:39:58
- * @LastEditTime: 2020-11-30 23:12:58
+ * @LastEditTime: 2021-02-16 02:44:57
  * @FilePath: \vue-node-management-system\src\views\frontEnd\bar\TabEdit.vue
 -->
 <template>
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {}
   }
 }

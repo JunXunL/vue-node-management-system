@@ -1,9 +1,9 @@
 <!--
- * @Descripttion: 
+ * @Descripttion:
  * @Author: Irene.Z
  * @Date: 2020-12-06 18:19:37
- * @LastEditTime: 2020-12-06 18:20:10
- * @FilePath: \vue-node-management-system\src\views\frontEnd\bar\main.vue
+ * @LastEditTime: 2021-02-16 02:45:35
+ * @FilePath: \vue-node-management-system\src\views\frontEnd\bar\Main.vue
 -->
 <template>
   <div>

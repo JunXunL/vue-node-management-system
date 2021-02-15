@@ -1,9 +1,9 @@
 <!--
- * @Descripttion: 
+ * @Descripttion:
  * @Author: Irene.Z
  * @Date: 2020-11-04 11:23:32
- * @LastEditTime: 2020-11-30 23:28:30
- * @FilePath: \vue-node-management-system\src\views\frontEnd\user\Detail.vue
+ * @LastEditTime: 2021-02-16 02:48:26
+ * @FilePath: \vue-node-management-system\src\views\afterEnd\user\Detail.vue
 -->
 <template>
   <p>用户详情</p>
@@ -11,11 +11,11 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {}
   },
   created() {
-    console.log("user detail router:  ", this.$router)
+    console.log('user detail router:  ', this.$router)
   }
 }
 </script>

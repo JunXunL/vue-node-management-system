@@ -1,8 +1,8 @@
 <!--
- * @Descripttion: 
+ * @Descripttion:
  * @Author: Irene.Z
  * @Date: 2020-10-14 16:53:54
- * @LastEditTime: 2020-12-06 18:24:21
+ * @LastEditTime: 2021-02-16 03:07:21
  * @FilePath: \vue-node-management-system\src\views\Home.vue
 -->
 <template>
@@ -15,11 +15,15 @@
     <el-container direction="horizontal">
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <!-- router是否使用 vue-router 的模式，启用该模式会在激活导航时以 index 作为 path 进行路由跳转 -->
-        <el-menu router :default-active="$route.path"
-          :unique-opened=true
+        <el-menu
+          router
+          :default-active="$route.path"
+          :unique-opened="true"
           :default-openeds="['1']"
           mode="vertical"
-          background-color="#00305E" text-color="#fff" active-text-color="#ffd04b">
+          background-color="#00305E"
+          text-color="#fff"
+          active-text-color="#ffd04b">
           <el-submenu index="1"><!--一级导航-->
             <template slot="title">
               <i class="el-icon-message"></i>前端系统
@@ -77,6 +81,7 @@
       </el-aside>
 
       <el-main>
+        <p>111111111111111</p>
         <router-view />
       </el-main>
     </el-container>
@@ -88,7 +93,7 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: "Home",
+  name: 'Home',
   data() {
     return {
       tableData: []
