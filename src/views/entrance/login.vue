@@ -1,8 +1,8 @@
 <!--
- * @Descripttion: 登录
+ * @Descripttion:登录
  * @Author: Irene.Z
  * @Date: 2020-12-07 16:30:43
- * @LastEditTime: 2021-02-14 02:26:41
+ * @LastEditTime: 2021-02-16 03:47:43
  * @FilePath: \vue-node-management-system\src\views\entrance\login.vue
 -->
 <template>
@@ -17,7 +17,7 @@
         </el-form-item>
         <el-form-item label="验证码" prop="security">
           <el-input v-model="ruleForm.security" />
-          <el-image ref="captcha" src="http://localhost:3000/svg" fit="contain" style="width: 100px; height: 100px" @click="getCaptcha">
+          <el-image ref="captcha" :src="verifiy" fit="contain" style="width: 100px; height: 100px" @click="getCaptcha" @load="verifyLoadState=true">
             <!-- <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div> -->
@@ -33,6 +33,7 @@
   </div>
 </template>
 <script>
+import _CryptoJS from '@utils/CryptoJS';
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -46,6 +47,8 @@ export default {
       }
     };
     return {
+      verifyLoadState: false,
+      verifiy: '/api/svg',
       ruleForm: {
         account: '',
         pass: '',
@@ -66,9 +69,20 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          const mysecurity = _CryptoJS.encrypt(this.ruleForm.pass);
+          this.ruleForm.pass = mysecurity;
           this.$http.post('api/user/get', this.ruleForm).then(res => {
             console.log('login res', res)
-          })
+            if (res.data.code === 0) {
+              // 验证成功返回值为200进入主页面
+              this.$router.push('/');
+            } else {
+              // 验证出错误时重新更新验证码
+              this.getCaptcha();
+            }
+          }).catch(err => {
+            console.log(err);
+          });
         } else {
           console.log('error submit!!');
           return false;
@@ -79,9 +93,14 @@ export default {
       this.$refs[formName].resetFields();
     },
     // 获取一个新的图片验证码
-    getCaptcha() {
+    getCaptcha(e) {
       // 每次指定的src要不一样，img才会重新请求，可以使用Date.now()小技巧
-      this.$refs.captcha.src = 'http://localhost:3000/svg?time=' + Date.now()
+      // this.$refs.captcha.src = 'http://localhost:3000/svg?time=' + Date.now()
+      if (!this.verifyLoadState) return;
+      // 防止下一次重复点击
+      this.verifyLoadState = false;
+      const base = '/api/svg';
+      this.verifiy = base + '?' + e.timeStamp;
     }
   }
 }
