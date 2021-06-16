@@ -1,8 +1,8 @@
 /*
- * @Descripttion:
+ * @Descripttion: axios封装
  * @Author: Irene.Z
  * @Date: 2020-12-15 19:24:16
- * @LastEditTime: 2021-01-28 17:39:22
+ * @LastEditTime: 2021-02-22 00:37:00
  * @FilePath: \vue-node-management-system\src\utils\http.js
  */
 import axios from 'axios';
@@ -71,13 +71,21 @@ http.interceptors.request.use(function(config) {
 http.interceptors.response.use((response) => {
   // 响应成功
   const res = response.data;
-  if (res.code * 1 !== 0) { // res.code的返回值，由前后端统一定义，code：0 成功信息， code：* 其它提示信息
-    this.$notify({
-      type: 'error',
-      title: res.code,
-      message: res.message || 'Other',
-      duration: 0 // 不自动关闭提示信息
-    });
+  /**
+   * res.code的返回值，由前后端统一定义
+   * code：0 请求成功，返回success信息；
+   * code：* 请求成功，返回其它信息；
+   * code: 2 服务器返回：请求的数据有问题、数据处理有问题
+   */
+  if (res.code * 1 !== 0) {
+    console.log('响应拦截器: ', res)
+    // this.$notify({
+    //   type: 'error',
+    //   title: res.code,
+    //   message: res.message || 'Other',
+    //   duration: 0 // 不自动关闭提示信息
+    // });
+    // sysMsgToast(res, false);
     // 使用promise过程中报Uncaught (in promise)错误，在后面加上.catch((e) => {})，就不会报错了
     return Promise.reject(new Error(res.message || 'Error')).catch((e) => {});
   } else {
@@ -102,12 +110,12 @@ http.interceptors.response.use((response) => {
     }
   }
   if (err.message) {
-    this.$notify({
-      type: 'error',
-      title: err.code || 'Error',
-      message: err.message || 'Error',
-      duration: 0 // 不自动关闭提示信息
-    });
+    // this.$notify({
+    //   type: 'error',
+    //   title: err.code || 'Error',
+    //   message: err.message || 'Error',
+    //   duration: 0 // 不自动关闭提示信息
+    // });
     return Promise.reject(err);
   }
 });

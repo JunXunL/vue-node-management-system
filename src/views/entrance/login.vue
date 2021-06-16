@@ -2,7 +2,7 @@
  * @Descripttion:登录
  * @Author: Irene.Z
  * @Date: 2020-12-07 16:30:43
- * @LastEditTime: 2021-02-16 03:47:43
+ * @LastEditTime: 2021-02-25 17:09:18
  * @FilePath: \vue-node-management-system\src\views\entrance\login.vue
 -->
 <template>
@@ -73,15 +73,25 @@ export default {
           this.ruleForm.pass = mysecurity;
           this.$http.post('api/user/get', this.ruleForm).then(res => {
             console.log('login res', res)
-            if (res.data.code === 0) {
+            if (res && res.code === 0) {
+              // 保存token: localStorage、vuex
+              console.log('res.content.token--------------', res.content.token)
+              window.localStorage.setItem('vue_node_managesys_user_token', res.content.token)
               // 验证成功返回值为200进入主页面
               this.$router.push('/');
+              // // 登录成功后，可以重定向页面，有以下方式
+              // if(this.$route.query.redirect) {
+              //   const redirectPath = this.$route.query.redirect;
+              //   this.$router.push({path: redirectPath}); // 重定向
+              // } else {
+              //   this.$router.push({name: 'home'});
+              // }
             } else {
               // 验证出错误时重新更新验证码
               this.getCaptcha();
             }
           }).catch(err => {
-            console.log(err);
+            console.log('catch----', err);
           });
         } else {
           console.log('error submit!!');
