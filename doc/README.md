@@ -1,3 +1,5 @@
+## 项目简介
+vue2 + elementUI 管理平台，nodeServer为后端服务。管理snack-bar-h5、domyself 和 myvue 项目使用到的资源。
 ## 项目构建记录 (https://element.eleme.cn/#/zh-CN/component/quickstart)
 
 ### 在项目的根目录安装Element UI

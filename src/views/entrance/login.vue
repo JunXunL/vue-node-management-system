@@ -34,6 +34,8 @@
 </template>
 <script>
 import _CryptoJS from '@utils/CryptoJS';
+import { setToken } from '@utils/getToken';
+import { mapMutations } from 'vuex';
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -66,6 +68,15 @@ export default {
     };
   },
   methods: {
+    // ...mapMutations([
+    //   'increment', // 将 `this.increment()` 映射为 `this.$store.commit('increment')`
+
+    //   // `mapMutations` 也支持载荷：
+    //   'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
+    // ]),
+    // ...mapMutations({
+    //   add: 'increment' // 将 `this.add()` 映射为 `this.$store.commit('increment')`
+    // }),
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -73,10 +84,11 @@ export default {
           this.ruleForm.pass = mysecurity;
           this.$http.post('api/user/get', this.ruleForm).then(res => {
             console.log('login res', res)
-            if (res && res.code === 0) {
-              // 保存token: localStorage、vuex
+            if (res && res.message === 'success') {
               console.log('res.content.token--------------', res.content.token)
-              window.localStorage.setItem('vue_node_managesys_user_token', res.content.token)
+              setToken('', res.content.token); // 保存到cookie中
+              // 保存token: localStorage、vuex
+              // window.localStorage.setItem('vue_node_managesys_user_token', res.content.token);
               // 验证成功返回值为200进入主页面
               this.$router.push('/');
               // // 登录成功后，可以重定向页面，有以下方式

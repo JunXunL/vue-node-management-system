@@ -10,7 +10,7 @@
 /**
  * 1、存cookie  set方法支持的属性有：
  * path->设置为指定页面创建cookie
- * expires->过期时间
+ * expires-》过期时间
  * domain-》设置对指定域名及指定域名的子域名可见
  * secure->值有false和true ,表示设置是否只支持https,默认是false
  */
@@ -46,6 +46,6 @@ export function setToken(key, value) {
   return (key && value) ? Cookies.set(key, value) : Cookies.set(CURRENT_USER, value);
 }
 
-export function removeToken (key) {
+export function removeToken(key) {
   return key ? Cookies.remove(key) : Cookies.remove(CURRENT_USER);
 }
