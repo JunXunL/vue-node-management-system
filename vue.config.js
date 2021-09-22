@@ -2,7 +2,7 @@
  * @Descripttion:
  * @Author: Irene.Z
  * @Date: 2020-10-27 16:21:22
- * @LastEditTime: 2020-12-15 00:19:14
+ * @LastEditTime: 2021-09-22 17:20:02
  * @FilePath: \vue-node-management-system\vue.config.js
  */
 const path = require("path");
@@ -24,7 +24,10 @@ module.exports = {
       "@components": path.resolve(srcDir, "components"),
       "@constants": path.resolve(srcDir, "constants"),
       "@store": path.resolve(srcDir, "store"),
-      "@utils": path.resolve(srcDir, "utils")
+      "@router": path.resolve(srcDir, "router"),
+      "@utils": path.resolve(srcDir, "utils"),
+      "@api": path.resolve(srcDir, "api"),
+      "@directive": path.resolve(srcDir, "directive")
     };
     Object.assign(config.resolve.alias, aliasExt);
     if (process.env.NODE_ENV === "production") {
@@ -41,7 +44,7 @@ module.exports = {
     proxy: {
       "/api": {
         target: nodeServer, // nodejs服务器地址
-        changeOrigin: true, // 是否允许跨越
+        changeOrigin: true, // 是否允许跨越，true表示本地会虚拟一个服务替本地项目接受或转发请求
         pathRewrite: {
           // 重写，用/api代替target值，如'/api/user/add'
           "^/api": ""

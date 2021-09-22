@@ -2,21 +2,24 @@
  * @Descripttion:登录
  * @Author: Irene.Z
  * @Date: 2020-12-07 16:30:43
- * @LastEditTime: 2021-02-25 17:09:18
+ * @LastEditTime: 2021-09-21 22:41:09
  * @FilePath: \vue-node-management-system\src\views\entrance\login.vue
 -->
 <template>
   <div class="register">
     <div class="contain-box">
-      <el-form ref="ruleForm" :model="ruleForm" status-icon :rules="rules" label-width="100px" class="demo-ruleForm">
+      <el-form ref="loginForm" :model="form" status-icon :rules="rules" label-width="100px" class="demo-ruleForm">
         <el-form-item label="账号" prop="account">
-          <el-input v-model="ruleForm.account" />
+          <el-input v-model="form.account" />
         </el-form-item>
         <el-form-item label="密码" prop="pass">
-          <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
+          <el-input v-model="form.pass" ref="password" type="password" autocomplete="off" />
+          <!-- <span class="show-pwd" @click="showPwd" >
+            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+          </span> -->
         </el-form-item>
         <el-form-item label="验证码" prop="security">
-          <el-input v-model="ruleForm.security" />
+          <el-input v-model="form.security" />
           <el-image ref="captcha" :src="verifiy" fit="contain" style="width: 100px; height: 100px" @click="getCaptcha" @load="verifyLoadState=true">
             <!-- <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
@@ -24,8 +27,8 @@
           </el-image>
         </el-form-item>
         <el-form-item class="btn-box">
-          <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
+          <el-button type="primary" :loading="loading" @click="submitForm('loginForm')">登录</el-button>
+          <el-button @click="resetForm('loginForm')">重置</el-button>
           <router-link :to="{name: 'Register'}" class="register-link">新用户注册</router-link>
         </el-form-item>
       </el-form>
@@ -34,24 +37,24 @@
 </template>
 <script>
 import _CryptoJS from '@utils/CryptoJS';
-import { setToken } from '@utils/getToken';
-import { mapMutations } from 'vuex';
+// import { setToken } from '@utils/getToken';
+// import { mapGetters, mapState } from 'vuex';
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
       } else {
-        if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass');
-        }
+        // if (this.form.pass !== '') {
+        //   this.$refs.loinForm.validateField('pass');
+        // }
         callback();
       }
     };
     return {
       verifyLoadState: false,
       verifiy: '/api/svg',
-      ruleForm: {
+      form: {
         account: '',
         pass: '',
         security: ''
@@ -64,8 +67,19 @@ export default {
         pass: [
           { required: true, validator: validatePass, trigger: 'blur' }
         ]
-      }
+      },
+      loading: false,
+      passwordType: "password",
+      redirect: undefined, // 重定向url
     };
+  },
+  watch: {
+    $route: {
+      handler: function (route) {
+        this.redirect = route.query && route.query.redirect;
+      },
+      immediate: true,
+    },
   },
   methods: {
     // ...mapMutations([
@@ -77,41 +91,48 @@ export default {
     // ...mapMutations({
     //   add: 'increment' // 将 `this.add()` 映射为 `this.$store.commit('increment')`
     // }),
+    showPwd() {
+      // 是否明文显示密码
+      if (this.passwordType === "password") {
+        this.passwordType = "";
+      } else {
+        this.passwordType = "password";
+      }
+      this.$nextTick(() => {
+        this.$refs.password.focus();
+      });
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          const mysecurity = _CryptoJS.encrypt(this.ruleForm.pass);
-          this.ruleForm.pass = mysecurity;
-          this.$http.post('api/user/get', this.ruleForm).then(res => {
-            console.log('login res', res)
-            if (res && res.message === 'success') {
-              console.log('res.content.token--------------', res.content.token)
-              setToken('', res.content.token); // 保存到cookie中
-              // 保存token: localStorage、vuex
-              // window.localStorage.setItem('vue_node_managesys_user_token', res.content.token);
-              // 验证成功返回值为200进入主页面
-              this.$router.push('/');
-              // // 登录成功后，可以重定向页面，有以下方式
-              // if(this.$route.query.redirect) {
-              //   const redirectPath = this.$route.query.redirect;
-              //   this.$router.push({path: redirectPath}); // 重定向
-              // } else {
+          this.loading = true; // 显示加载中状态
+          const form = {
+            account: this.form.account.trim(),
+            password: _CryptoJS.encrypt(this.form.pass), // 加密
+            security: this.form.security
+          }
+          this.$store
+            .dispatch("userInfo/login", form)
+            .then(() => {
+              // 登录成功，（1）返回token并保存token，进入平台主页面；（2）可以重定向页面，也可以使用name
               //   this.$router.push({name: 'home'});
-              // }
-            } else {
+              this.$router.push({ path: this.redirect || "/" }); // 重定向
+              this.loading = false;
+            })
+            .catch(() => {
               // 验证出错误时重新更新验证码
               this.getCaptcha();
-            }
-          }).catch(err => {
-            console.log('catch----', err);
-          });
+              this.loading = false;
+            });
         } else {
           console.log('error submit!!');
+          this.getCaptcha();
           return false;
         }
       });
     },
     resetForm(formName) {
+      // 重置表单
       this.$refs[formName].resetFields();
     },
     // 获取一个新的图片验证码
@@ -121,8 +142,8 @@ export default {
       if (!this.verifyLoadState) return;
       // 防止下一次重复点击
       this.verifyLoadState = false;
-      const base = '/api/svg';
-      this.verifiy = base + '?' + e.timeStamp;
+      const timeStamp = e ? e.timeStamp : new Date.now();
+      this.verifiy = this.verifiy + '?' + timeStamp;
     }
   }
 }

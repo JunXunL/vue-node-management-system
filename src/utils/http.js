@@ -2,7 +2,7 @@
  * @Descripttion: axios封装
  * @Author: Irene.Z
  * @Date: 2020-12-15 19:24:16
- * @LastEditTime: 2021-02-22 00:37:00
+ * @LastEditTime: 2021-09-21 16:22:58
  * @FilePath: \vue-node-management-system\src\utils\http.js
  */
 import axios from 'axios';
@@ -30,29 +30,31 @@ import axios from 'axios';
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencode'
 // // Qs就是将某个对象变成
 // axios.defaults.transformRequest = data => Qs.stringify(data)
+//-------------------------------------------
 
-// 创建axios实例
+import { Notification } from "element-ui";
+import store from "@store";
+import { getToken } from "@utils/getToken";
+
+// 创建 axios 实例
 const http = axios.create({
   // 定义接口的基本路径（非必须），这个只是对一个项目里面的，如果所有接口均调用同一个域名下的不同接口的时候用着方便。
   // baseURL: 'http://xxx.xxx.x.xxx:8080', // api的base_url
   // baseURL: process.env.BASE_URL, // url = base url + request url
-  timeout: 5000, // 设置超时时间和跨域是否允许跨域携带凭证
+  timeout: 5000, // request timeout，设置超时时间和跨域是否允许跨域携带凭证
   // 携带cookie 在axios创建时要加入withCredentials: true，默认withCredentials：false，是不会携带cookie的
   // 设置Cros跨域可以携带cookie。不然在跨域的情况下无法携带cookie
   // withCredentials: true,
 })
 
 // 请求拦截器
+// http request 拦截器 一般用来在请求前，加一些全局的配置 或 开启一些css的加载动画
 http.interceptors.request.use(function(config) {
   // 在发送请求之前，获取登录用户token
-  // if (store.getters.token) {
-  // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-  //   config.headers['Access-Token'] = getToken();
-  // }
-
-  // // 携带token
-  // let token = window.localStorage.getItem('token')
-  // token && (config.headers.Authorization = token)
+  if (store.getters.token) {
+  // 判断是否存在token，如果存在的话，则每个http header都加上token。（让每个请求的header携带token-- ['X-Token']为自定义key 请根据实际情况自行修改）
+    config.headers['Access-Token'] = getToken();
+  }
 
   // if (config.method=='post'){
   //   config.data = Qs.stringify(config.data); // Qs.stringify()将对象 序列化成URL的形式，以&进行拼接。处理之后的params再去发送请求时 。这时候传递的参数会以bankName=''&bankNameAll=''的形式传递到后台
@@ -68,6 +70,7 @@ http.interceptors.request.use(function(config) {
 });
 
 // 响应拦截器
+// http response 拦截器 一般用来根据一些后端协议特殊返回值做一些处理，例如：权限方面、404... 或关闭一些 css 加载动画
 http.interceptors.response.use((response) => {
   // 响应成功
   const res = response.data;
@@ -92,13 +95,14 @@ http.interceptors.response.use((response) => {
     return res; // code：0 成功信息
   }
 }, (err) => {
-  // 响应失败
+  // 响应失败，捕获异常
   if (err && err.response) {
+    // do something 这里的处理方式，需要要和后端统一约定好再进一步晚上处理方式
     switch (err.response.status) {
       case 401: // 登录失效逻辑
-        // store.dispatch('user/resetToken').then(() => {
-        //   location.reload();
-        // });
+        store.dispatch('user/resetToken').then(() => {
+          location.reload();
+        });
         break;
       default: err.message = `连接错误${err.response.status}`;
     }
@@ -116,6 +120,10 @@ http.interceptors.response.use((response) => {
     //   message: err.message || 'Error',
     //   duration: 0 // 不自动关闭提示信息
     // });
+    Notification.error({
+      title: err.code || "Error",
+      message: err.message || "Error",
+    });
     return Promise.reject(err);
   }
 });
@@ -171,4 +179,4 @@ http.interceptors.response.use((response) => {
 //   });
 // }
 // 暴露post、get方法
-export default http
+export default http;

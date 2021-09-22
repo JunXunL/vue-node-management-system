@@ -2,7 +2,7 @@
  * @Descripttion:
  * @Author: Irene.Z
  * @Date: 2020-12-07 16:30:51
- * @LastEditTime: 2021-02-05 13:57:11
+ * @LastEditTime: 2021-09-21 22:10:41
  * @FilePath: \vue-node-management-system\src\views\entrance\register.vue
 -->
 <template>

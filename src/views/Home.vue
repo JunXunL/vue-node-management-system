@@ -2,12 +2,19 @@
  * @Descripttion:
  * @Author: Irene.Z
  * @Date: 2020-10-14 16:53:54
- * @LastEditTime: 2021-02-16 03:07:21
+ * @LastEditTime: 2021-09-22 01:01:41
  * @FilePath: \vue-node-management-system\src\views\Home.vue
 -->
 <template>
   <el-container id="home">
-    <el-header height="100px">header</el-header>
+    <el-header height="100px">
+      <div>
+        <div></div>
+        <div>
+          <span></span>
+        </div>
+      </div>
+    </el-header>
     <!-- 横向（aside 和 main） -->
     <!-- 垂直菜单，可内嵌子菜单。
     通过submenu组件可以生成二级菜单，折叠该分类菜单。
@@ -98,6 +105,15 @@ export default {
     return {
       tableData: []
     };
+  },
+  computed: {
+    ...mapState({
+      userName: state => state.user.userName
+    }),
+    // ...mapGetters('cart', {
+    //   products: 'cartProducts',
+    //   total: 'cartTotalPrice'
+    // })
   },
   mounted() {},
   methods: {}
