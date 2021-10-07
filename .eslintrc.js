@@ -258,10 +258,10 @@ module.exports = {
       }
     }],
     'padded-blocks': [2, 'never'],
-    'quotes': [2, 'single', {
-      'avoidEscape': true,
-      'allowTemplateLiterals': true
-    }], // 字符串没有使用单引号(’quotes’: [1, ’single’]) ：String must use singlequote
+    // 'quotes': [2, 'single', {
+    //   'avoidEscape': true,
+    //   'allowTemplateLiterals': true
+    // }], // 字符串没有使用单引号(’quotes’: [1, ’single’]) ：String must use singlequote
     // "singleQuote": true, // 使用单引号
     'semi': 0, // 不检查分号
     // 'semi': [2, 'never'], // 语句结尾不加分号；"semi": [2, "always"],//语句结尾强制加分号
