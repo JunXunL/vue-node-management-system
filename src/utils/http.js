@@ -30,7 +30,7 @@ import axios from 'axios';
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencode'
 // // Qs就是将某个对象变成
 // axios.defaults.transformRequest = data => Qs.stringify(data)
-//-------------------------------------------
+// -------------------------------------------
 
 import { Notification } from "element-ui";
 import store from "@store";
@@ -52,7 +52,8 @@ const http = axios.create({
 http.interceptors.request.use(function(config) {
   // 在发送请求之前，获取登录用户token
   if (store.getters.token) {
-  // 判断是否存在token，如果存在的话，则每个http header都加上token。（让每个请求的header携带token-- ['X-Token']为自定义key 请根据实际情况自行修改）
+    // 判断是否存在token，如果存在的话，则每个http header都加上token。（让每个请求的header携带token-- ['X-Token']为自定义key 请根据实际情况自行修改）
+    // 其后每个 http request 访问后端服务，后端服务可以根据token获取当前登录的用户信息！！！
     config.headers['Access-Token'] = getToken();
   }
 

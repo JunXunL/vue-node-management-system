@@ -9,6 +9,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import userInfo from "./modules/user_info";
+import permission from "./modules/permission"; // 控制用户权限
 
 Vue.use(Vuex);
 
@@ -16,5 +17,5 @@ export default new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
-  modules: {userInfo}
+  modules: { userInfo, permission }
 });

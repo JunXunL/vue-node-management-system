@@ -7,29 +7,29 @@
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "@views/Home.vue";
-import home from "./home";
+import home from "./home"; // 首页 route
 import frontManagement from "./front/index";
 import store from "../store";
+import { delteFakeParent } from "@utils/common";
 
 Vue.use(VueRouter);
 
 /**
- * Layout 
+ * Layout
  * import Layout from "@/layout";
- * 
+ *
  * hidden: true // (默认 false)
- * 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1 
- * 
+ * 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
+ *
  * redirect: 'noRedirect'
  * 当设置 noRedirect 的时候该路由在面包屑导航中不可被点击
- * 
+ *
  * 当你一个路由下面的 children 声明的路由大于1个时，自动会变成嵌套的模式--如组件页面
  * 只有一个时，会将那个子路由当做根路由显示在侧边栏--如引导页面
  * 若你想不管路由下面的 children 声明的个数都显示你的根路由
  * 你可以设置 alwaysShow: true，这样它就会忽略之前定义的规则，一直显示根路由
  * alwaysShow: true
- * 
+ *
  * name: 'router-name' // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
  * meta: {
  *   roles: ['admin', 'editor'] // 设置该路由进入的权限，支持多个权限叠加
@@ -38,104 +38,13 @@ Vue.use(VueRouter);
  *   noCache: true // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
  *   breadcrumb: false //  如果设置为false，则不会在breadcrumb面包屑中显示(默认 true)
  *   affix: true // 若果设置为true，它则会固定在tags-view中(默认 false)
- * 
+ *
  *   当路由设置了该属性，则会高亮相对应的侧边栏。
  *   这在某些场景非常有用，比如：一个文章的列表页路由为：/article/list
  *   点击文章进入文章详情页，这时候路由为/article/1，但你想在侧边栏高亮文章列表的路由，就可以进行如下设置
  *    activeMenu: '/article/list'
  * }
  */
-
-// 导航菜单配置
-// const Bar = {
-//   path: "/bar", // 这里不设置值，默认页面
-//   name: "Bar",
-//   component: () => import("@views/frontEnd/bar/Index.vue"),
-//   children: [
-//     {
-//       path: "nav",
-//       name: "Nav",
-//       component: () => import("@views/frontEnd/bar/Main.vue"),
-//       children: [
-//         {
-//           path: "edit",
-//           name: "Edit",
-//           component: () => import("@views/frontEnd/bar/NavEdit.vue")
-//         },
-//         {
-//           path: "list",
-//           name: "List",
-//           component: () => import("@views/frontEnd/bar/NavList.vue")
-//         }
-//       ]
-//     },
-//     {
-//       path: "tab",
-//       name: "Tab",
-//       component: () => import("@views/frontEnd/bar/Main.vue"),
-//       children: [
-//         {
-//           path: "edit",
-//           name: "Edit",
-//           component: () => import("@views/frontEnd/bar/TabEdit.vue")
-//         },
-//         {
-//           path: "list",
-//           name: "List",
-//           component: () => import("@views/frontEnd/bar/TabList.vue")
-//         }
-//       ]
-//     }
-//   ]
-// };
-
-// 普通用户
-// const FUser = {
-//   path: "/fuser",
-//   name: "FUser",
-//   component: () => import("@views/frontEnd/user/Index.vue"),
-//   children: [
-//     {
-//       path: "list",
-//       name: "List",
-//       component: () => import("@views/frontEnd/user/List.vue")
-//     },
-//     {
-//       path: "edit",
-//       name: "Edit",
-//       component: () => import("@views/frontEnd/user/Edit.vue")
-//     },
-//     {
-//       path: "detail",
-//       name: "Detail",
-//       component: () => import("@views/frontEnd/user/Detail.vue")
-//     }
-//   ]
-// };
-
-// 管理员用户
-// const AUser = {
-//   path: "/auser",
-//   name: "AUser",
-//   component: () => import("@views/afterEnd/user/Index.vue"),
-//   children: [
-//     {
-//       path: "list",
-//       name: "List",
-//       component: () => import("@views/afterEnd/user/List.vue")
-//     },
-//     {
-//       path: "edit",
-//       name: "Edit",
-//       component: () => import("@views/afterEnd/user/Edit.vue")
-//     },
-//     {
-//       path: "detail",
-//       name: "Detail",
-//       component: () => import("@views/afterEnd/user/Detail.vue")
-//     }
-//   ]
-// };
 
 // 不需要动态判断权限的路由，所有角色可以任意访问
 export const constantRoutes = [
@@ -160,7 +69,7 @@ export const constantRoutes = [
 const redirectRoute = { path: "*", redirect: "/404", hidden: true };
 
 const createRouter = () =>
-  new Router({
+  new VueRouter({
     mode: "history", // 需要后端服务支持
     scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes,
@@ -169,10 +78,10 @@ const router = createRouter();
 
 // 动态路由
 export const asyncRoutes = [
-  frontManagement,
+  frontManagement, // 路由模块 -- 普通用户平台
   redirectRoute,
 ].map((item) => {
-  // 
+  // 遍历数组格式的路由模块
   return delteFakeParent(item);
 });
 
@@ -254,7 +163,7 @@ export function resetRouter() {
 //    * next()是进入下一个管道，next()一定要执行，否则将出现页面留白的现象。
 //    */
 //   if (to.meta.requireAuth) {
-//     // (to.name !== 'Login') && (to.name !== 'Register') && !isAuthenticated && 
+//     // (to.name !== 'Login') && (to.name !== 'Register') && !isAuthenticated &&
 //     // console.log('store.state.token------', store.state.token)
 //     // if (store.state.token) {
 //       // 判断，VUEX中有保存token
