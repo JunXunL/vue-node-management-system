@@ -13,8 +13,8 @@ export default {
   path: "/front",
   name: "FrontUserManagement",
   // component: Layout,
-  alwaysShow: true,
+  alwaysShow: true, // 左侧菜单栏父级是否一直显示，因为存在单条子路由会隐藏父级菜单
   redirect: { name: "FrontIndex" }, // 重定向页面，普通用户平台的首页
-  meta: { title: "用户管理中心", icon: "nav_icon_marketing"},
+  meta: { title: "用户管理中心", icon: "nav_icon_marketing" },
   children: [userManage]
 };

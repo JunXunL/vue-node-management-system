@@ -122,7 +122,7 @@ npm run lint -- --fix
 
 ## 三级路由
 
-虚拟三级，实际二级路由。对配置二级（虚拟）路由添加noCompoent: true,通过算法遍历的形式，把三级（概念上的）转化为二级（真实）。这样一来，父路由配置要放在真实的父路由上。
+虚拟三级，实际二级路由。对配置二级（虚拟）路由添加inventedRoute: true,通过算法遍历的形式，把三级（概念上的）转化为二级（真实）。这样一来，父路由配置要放在真实的父路由上。
 
 ```
 import Layout from "@/layout";
@@ -139,7 +139,7 @@ export default {
     {
       path: "activityManagement",
       name: "SubView",
-      noCompoent: true, // 二级（虚拟）路由标识
+      inventedRoute: true, // 二级（虚拟）路由标识
       children: [
         {
           path: "index",

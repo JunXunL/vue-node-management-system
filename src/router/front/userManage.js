@@ -10,27 +10,28 @@ export default {
   path: "fuser",
   name: "FUser",
   // component: () => import("@views/frontEnd/user/Index.vue"),
-  noComponent: true,
+  inventedRoute: true,
   children: [
     {
       // path: "list",
       path: "index",
       name: "Index",
-      component: () => import("@views/frontEnd/user/index"),
+      component: () => import("@views/frontEnd/user/Index"),
       meta: { title: "用户中心" }
     },
     {
       path: "edit/:creator",
       name: "Edit",
-      component: () => import("@views/frontEnd/user/edit"),
+      component: () => import("@views/frontEnd/user/Edit"),
       meta: {
         title: "修改个人信息",
-        activeMenu: "/frontEnd/user/index"
+        activeMenu: "/frontEnd/user/Index"
       }
     },
     // {
     //   path: "detail",
     //   name: "Detail",
+    //   hidden: true, // 是否在左侧菜单栏隐藏，
     //   component: () => import("@views/frontEnd/user/detail")
     // }
   ]

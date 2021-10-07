@@ -106,15 +106,7 @@ export default {
       tableData: []
     };
   },
-  computed: {
-    ...mapState({
-      userName: state => state.user.userName
-    }),
-    // ...mapGetters('cart', {
-    //   products: 'cartProducts',
-    //   total: 'cartTotalPrice'
-    // })
-  },
+  computed: {},
   mounted() {},
   methods: {}
 };

@@ -16,8 +16,8 @@ export default {
   children: [
     {
       path: "home",
-      name: "home",
-      component: () => import("@/views/Home"),
+      name: "Home",
+      component: () => import("@views/Home"),
       meta: { title: "概况", icon: "dashboard" },
     },
   ],
