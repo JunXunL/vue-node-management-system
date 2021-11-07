@@ -1,0 +1,75 @@
+{
+    "editor.minimap.enabled": true, // 可以快速预览（右侧缩率视图）
+    "breadcrumbs.enabled": true, //开启 vscode 文件路径导航
+    // "workbench.iconTheme": "material-icon-theme",//指定文件夹图标
+    // "window.zoomLevel": 0.4, // 窗口缩放倍数
+    // "files.autoSave": "afterDelay", // 立即自动保存文件。有时会导致代码自动保存时无法正确格式化
+    // "editor.fontSize": 16, // 字体大小
+    "editor.fontFamily": "Consolas, 'Courier New', monospace,'微软雅黑'", //  字体样式
+    "editor.tabSize": 2, // 设定tabsize缩进的空格，editor.detectIndentation启用时会覆盖该设置
+    // "http.proxyAuthorization": "false", // 关闭一些代理引发的警告
+    /********************************* ESLint 插件 *********************************/
+    "eslint.autoFixOnSave": true, // 每次保存的时候将代码按eslint格式进行修复，但是默认只支持 javascript .js 文件
+    
+    //作用于vue 文件
+    "[vue]": { "editor.defaultFormatter": "rvest.vs-code-prettier-eslint" }, 
+    
+    // "eslint.validate": [
+    //     "javascript",
+    //     "javascriptreact",
+    //     "html",
+    //     "vue"
+    // ], // 添加 vue 支持
+    "eslint.validate": [ "javascript", "javascriptreact", { "language": "html", "autoFix": true }, { "language": "vue", "autoFix": true } ], // 用来配置作用的文件类型
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }, // 保存时按照eslint的规则格式化
+    "editor.formatOnSave": true, // 保存时自动格式化代码。可以实现保存时自动格式化style代码
+    /********************************* vetur 插件 *********************************/
+    "vetur.format.defaultFormatter.html": "js-beautify-html", // #这个按用户自身习惯选择
+    "files.associations": { "*.wpy": "vue", "*.cjson": "jsonc", "*.wxss": "css", "*.wxs": "javascript" },
+    "emmet.includeLanguages": { "wxml": "html" },
+    "vetur.format.defaultFormatter.js": "prettier-eslint", //作用于js文件
+    // "vetur.format.defaultFormatter.js": "vscode-typescript", // #让vue中的js按编辑器自带的ts格式进行格式化 
+    "minapp-vscode.disableAutoConfig": true,
+    "explorer.confirmDelete": false,
+    "vetur.format.options.tabSize": 4,
+    "vetur.format.defaultFormatterOptions": {
+        "js-beautify-html": {
+            // "wrap_attributes": "force-aligned"
+            "wrap_attributes":"auto" // html标签属性不换行
+            // #vue组件中html代码格式化样式
+        }
+    },   
+    // "vetur.format.defaultFormatterOptions": {
+    //     "prettier": {
+    //         "semi": false, // 不加分号
+    //         "singleQuote": true, // 用单引号
+    //         "trailingComma": "none" // 不使用拖尾逗号
+    //     } // 重写prettier配置，与eslint保持一致
+    // },
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": true, // 让函数(名)和后面的括号之间加个空格
+    /********************************* prettier 插件 *********************************/
+    /* vetur的代码格式化就是使用prettier,因此选择不安装prettier */
+    // "prettier.eslintIntegration": true, // 让prettier使用eslint的代码格式进行校验 
+    // "prettier.singleQuote": true, // 使用单引号（和eslint规则一致，否则会发生冲突）
+    // "prettier.semi": false, // 末尾不使用分号（和eslint规则一致，否则会发生冲突）
+    // "prettier.trailingComma": "none", // 不使用拖尾逗号（和eslint规则一致，否则会发生冲突）
+    // "prettier.ignorePath": ".prettierignore", // prettier忽略的文件，需在根目录新增.prettierignore文件
+    /********************************* KoroFileHeader 插件 *********************************/
+    "fileheader.customMade": {
+        "Descriptin": "",
+        "Version": "0.1",
+        "Author": "Irene.Z",
+        "Date": "Do not edit",
+        "LastEditors": "Your Name",
+        // "FilePath": "Do not edit",
+        "LastEditTime": "Do not edit"
+    }, // 文件头部注释
+    "fileheader.cursorMode": {
+        "description": "",
+        "param": "",
+        "return": "",
+        "author": "Irene.Z"
+    } // 函数头部注释
+}
