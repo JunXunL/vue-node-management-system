@@ -116,8 +116,8 @@ module.exports = {
       // }
     }],
     // 'vue/html-closing-bracket-newline': 'off',
-    "vue/singleline-html-element-content-newline": "0", // 带属性的标签中的内容需另起一行
-    "vue/multiline-html-element-content-newline": "0", // 元素中有多行内容，需每行内容各占一行
+    "vue/singleline-html-element-content-newline": "off", // 带属性的标签中的内容需另起一行
+    "vue/multiline-html-element-content-newline": "off", // 元素中有多行内容，需每行内容各占一行
     "vue/component-definition-name-casing": ["error", "PascalCase"], // 规定组件中的name属性命名格式必须使用大驼峰命名法
     "vue/no-v-html": "off", // 关闭禁止使用v-html的规定
     "accessor-pairs": 2, // 强制 getter 和 setter 在对象中成对出现，与计算属性的get和set无关
@@ -204,9 +204,6 @@ module.exports = {
     'no-mixed-spaces-and-tabs': 2, // 禁止空格和 tab 的混合缩进
     'no-multi-spaces': 2, // 禁止使用多个空格
     'no-multi-str': 2, // 禁止使用多行字符串
-    'no-multiple-empty-lines': [2, {
-      'max': 1 // 最多空一行
-    }], // 禁止出现多行空行
     "no-global-assign": 2, // 禁止对原生对象或只读的全局对象进行赋值
     'no-unsafe-negation': 2, // 禁止对关系运算符的左操作数使用否定操作符
 
@@ -234,7 +231,6 @@ module.exports = {
     'no-sparse-arrays': 2, // 禁用稀疏数组（error:[,,] | true: [1,2,]）
     'no-this-before-super': 2, // 禁止在构造函数中，在调用 super() 之前使用 this 或 super
     'no-throw-literal': 2, // 禁止抛出的异常不是Error 对象
-    'no-trailing-spaces': 2, // 禁止使用行尾空白（空格、tab 和其它 Unicode 空白字符）。
     'no-undef': 2, // 禁用未声明的变量，除非它们在 /*global */ 注释中被提到
     'no-undef-init': 2, // 禁止将变量初始化为 undefined
     'no-unexpected-multiline': 2, // 禁止出现令人困惑的多行表达式
@@ -274,8 +270,8 @@ module.exports = {
     }], // 不校验单引号和双引号
     // "singleQuote": true, // 使用单引号
     // 'semi': 0, // 不检查分号
-    // 'semi': [2, 'never'], // 语句结尾不加分号；
-    "semi": [2, "always"],//语句结尾强制加分号
+    'semi': [2, 'never'], // 语句结尾不加分号；
+    // "semi": [2, "always"],//语句结尾强制加分号
     'semi-spacing': [2, { 'before': false, 'after': true }],
     'space-before-blocks': [2, 'always'], // 强制代码块之前出现空格
     /*'space-before-function-paren'冲突： https://github.com/prettier/prettier/issues/3847 */
@@ -302,6 +298,19 @@ module.exports = {
       objectsInObjects: true
     }], // 强制在花括号中使用一致的空格
     'array-bracket-spacing': [2, 'never'], // 强制数组方括号中使用一致的空格
+    // 'no-trailing-spaces': 0, // 禁止使用行尾空白（空格、tab 和其它 Unicode 空白字符）。
+    'no-trailing-spaces': 'error', // 禁止行尾空格
+    // 'no-multiple-empty-lines': 'error', // 禁止出现多行空行
+    'no-multiple-empty-lines': [2, {
+      'max': 1 // 最多空一行
+    }], // 禁止出现多行空行
+    'no-multi-spaces': 'error', // 禁止在单行内非缩进情况出现多个空格
+    // 'eqeqeq': 'error', //  使用'==='来代替'=='
+    //  'space-before-function-paren': ["error", {"anonymous": "never", "named": "never", "asyncArrow": "never"}], // 函数名后不需要空格
+    //  // 禁止在生产环境出现alert
+    //  'no-alert':  process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    //  'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    //  'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
 
   }
 }
