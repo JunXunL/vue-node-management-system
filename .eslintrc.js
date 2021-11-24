@@ -44,7 +44,7 @@ module.exports = {
     'camelcase': [0, { // 强制使用骆驼拼写法命名约定
       'properties': 'always'
     }],
-    'comma-dangle': [2, 'never'], // 要求或禁止末尾逗号
+    'comma-dangle': [0, 'never'], // 0不对最后一行的末尾的逗号进行检查；禁止（1或2）末尾逗号
     'comma-spacing': [2, { // 强制在逗号前后使用一致的空格
       'before': false,
       'after': true
@@ -169,11 +169,11 @@ module.exports = {
       }
     }],
     'padded-blocks': [2, 'never'], // 要求或禁止块内填充
-    'quotes': [2, 'single', { // 强制使用一致的反勾号、双引号或单引号
+    'quotes': [2, 'double', { // 强制使用一致的反勾号、双引号（2, 'double'）或单引号（2, 'single'）
       'avoidEscape': true,
       'allowTemplateLiterals': true
     }],
-    'semi': [2, 'never'], // 要求或禁止使用分号代替 ASI
+    'semi': [0, 'never'], // 0可用可不用，不做强制；禁止（1或2）使用分号
     'semi-spacing': [2, { // 强制分号之前和之后使用一致的空格
       'before': false,
       'after': true
