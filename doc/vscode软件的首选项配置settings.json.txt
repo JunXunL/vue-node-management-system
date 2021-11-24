@@ -73,3 +73,42 @@
         "author": "Irene.Z"
     } // 函数头部注释
 }
+
+// 最终使用版本
+{
+    // tab 大小为2个空格
+    "editor.tabSize": 2,
+    // 编辑器换行
+    "editor.wordWrap": "off",
+    // 保存时格式化
+    "editor.formatOnSave": true,
+    // 开启 vscode 文件路径导航
+    "breadcrumbs.enabled": true,
+    // 选择 vue 文件中 template 的格式化工具
+    "vetur.format.defaultFormatter.html": "js-beautify-html",
+    // vetur 的自定义设置
+    "vetur.format.defaultFormatterOptions": {
+      "js-beautify-html": {
+        // "wrap_attributes": "aligned-multiple"
+        // "wrap_attributes": "force-aligned"
+        "wrap_attributes": "auto" // #vue组件中html代码格式化样式
+      },
+      "prettier": {
+        // "singleQuote": true, // prettier 设置强制单引号 （优先级低于 eslintrc配置quotes）
+        // "semi": false, // prettier 设置语句末尾不加分号 （优先级低于 eslintrc配置quotes）
+        "printWidth": 100,
+        "wrapAttributes": false,
+        "sortAttributes": false
+      }
+    },
+
+    "eslint.debug": true,
+    "editor.codeActionsOnSave": {
+      // 保存时，按照eslint的规则格式化，修复
+      "source.fixAll.eslint": true
+    },
+    
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode", // 格式化时使用 prettier
+    }
+  }
