@@ -2,16 +2,16 @@
  * @Descripttion:
  * @Author: Irene.Z
  * @Date: 2020-10-14 16:53:54
- * @LastEditTime: 2021-09-22 01:01:41
+ * @LastEditTime: 2021-11-25 02:56:57
  * @FilePath: \vue-node-management-system\src\views\Home.vue
 -->
 <template>
   <el-container id="home">
     <el-header height="100px">
       <div>
-        <div></div>
+        <div />
         <div>
-          <span></span>
+          <span />
         </div>
       </div>
     </el-header>
@@ -22,18 +22,10 @@
     <el-container direction="horizontal">
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <!-- router是否使用 vue-router 的模式，启用该模式会在激活导航时以 index 作为 path 进行路由跳转 -->
-        <el-menu
-          router
-          :default-active="$route.path"
-          :unique-opened="true"
-          :default-openeds="['1']"
-          mode="vertical"
-          background-color="#00305E"
-          text-color="#fff"
-          active-text-color="#ffd04b">
+        <el-menu router :default-active="$route.path" :unique-opened="true" :default-openeds="['1']" mode="vertical" background-color="#00305E" text-color="#fff" active-text-color="#ffd04b">
           <el-submenu index="1"><!--一级导航-->
             <template slot="title">
-              <i class="el-icon-message"></i>前端系统
+              <i class="el-icon-message" />前端系统
             </template>
             <el-menu-item-group title="导航"><!--二级导航-->
               <el-submenu index="/bar/nav"><!--三级导航-->
@@ -59,7 +51,7 @@
           </el-submenu>
           <el-submenu index="/afterEnd">
             <template slot="title">
-              <i class="el-icon-menu"></i>后端系统
+              <i class="el-icon-menu" />后端系统
             </template>
             <el-menu-item-group title="超级管理员">
               <el-menu-item index="/auser/list">用户信息</el-menu-item>
@@ -68,7 +60,7 @@
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">
-              <i class="el-icon-setting"></i>系统配置
+              <i class="el-icon-setting" />系统配置
             </template>
             <el-menu-item-group>
               <template slot="title">分组一</template>
@@ -100,16 +92,16 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   data() {
     return {
       tableData: []
-    };
+    }
   },
   computed: {},
   mounted() {},
   methods: {}
-};
+}
 </script>
 
 <style lang="scss" scoped>

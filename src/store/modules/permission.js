@@ -1,3 +1,11 @@
+/*
+ * @Descriptin:
+ * @Version: 0.1
+ * @Author: Irene.Z
+ * @Date: 2021-10-07 23:26:10
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-11-25 02:50:41
+ */
 import { constantRoutes } from "@router";
 // import { authenticateUser } from "@api/user";
 
@@ -23,6 +31,8 @@ const mutations = {
 
 const actions = {
   authenticateUser({ commit }) {
+    // node服务建立权限和路由表，返回信息
+
     // return new Promise((resolve, reject) => {
     //   authenticateUser()
     //   .then((response) => {

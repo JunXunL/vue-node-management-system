@@ -2,7 +2,7 @@
  * @Descripttion: 自定义指令，权限控制指令
  * @Author: Irene.Z
  * @Date: 2021-09-22 00:13:45
- * @LastEditTime: 2021-09-22 00:19:38
+ * @LastEditTime: 2021-11-25 02:46:27
  * @FilePath: \vue-node-management-system\src\directive\permission\permission.js
  */
 
@@ -14,8 +14,8 @@ function checkPermission(el, binding) {
   const roles = store.getters && store.getters.roles; // 当前用户所带的角色权限集合
   const userId = store.getters && store.getters.userId;
   if (value && value instanceof Object) {
-    let _value = value.roles ? value.roles : value; // 当前事件上绑定的权限
-    let _creator = value.creator ? value.creator : "";
+    const _value = value.roles ? value.roles : value; // 当前事件上绑定的权限
+    const _creator = value.creator ? value.creator : "";
     if (_value.length > 0) {
       const permissionRoles = _value;
       const hasPermission = roles.some((role) => {
@@ -24,12 +24,12 @@ function checkPermission(el, binding) {
       });
       // 没有权限处理
       if (!hasPermission) {
-        if (_creator && _creator === userId) return; //对于编辑删除按钮，用户没有超级权限时，可以编辑自己创建的活动
-        let cloneEl = el.cloneNode(true);
-        cloneEl.addEventListener("click", function () {
+        if (_creator && _creator === userId) return; // 对于编辑删除按钮，用户没有超级权限时，可以编辑自己创建的活动
+        const cloneEl = el.cloneNode(true);
+        cloneEl.addEventListener("click", function() {
           Message.error("没有该操作权限，请联系系统管理员！");
         });
-        //替换掉原来绑定事件的节点
+        // 替换掉原来绑定事件的节点
         el.parentNode && el.parentNode.replaceChild(cloneEl, el);
       }
     }
@@ -45,4 +45,4 @@ export default {
   update(el, binding) {
     checkPermission(el, binding);
   },
-};
+}

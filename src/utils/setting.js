@@ -2,7 +2,7 @@
  * @Descripttion: 全局设置
  * @Author: Irene.Z
  * @Date: 2021-09-21 23:25:52
- * @LastEditTime: 2021-09-21 23:35:48
+ * @LastEditTime: 2021-11-25 02:55:21
  * @FilePath: \vue-node-management-system\src\utils\setting.js
  */
 

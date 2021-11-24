@@ -2,7 +2,7 @@
  * @Descripttion: 利用全局前置守卫来进行路由控制
  * @Author: Irene.Z
  * @Date: 2021-09-21 22:49:05
- * @LastEditTime: 2021-09-21 23:44:24
+ * @LastEditTime: 2021-11-25 02:48:53
  * @FilePath: \vue-node-management-system\src\router\permission.js
  */
 import router from "../router"; // index.js
@@ -19,12 +19,12 @@ const whileRouteList = ["/login", "/register", "/404"];
 
 // 在router.beforeEach()中嵌套async
 // 利用全局前置守卫来进行路由控制，判断是否登录，没登录去登录页，登陆了就判断是否添加了路由列表，然后继续跳转
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   NProgress.start(); // 浏览器顶部的进度条 -- 开始
 
   document.title = getPageTitle(to.meta.title); // 设置页面标题
 
-  const isAuthenticated = getToken() ? true : false; // 判断Cookie中是否有token
+  const isAuthenticated = getToken(); // 判断Cookie中是否有token
 
   /**
    * to.name：即将要进入的目标 路由对象（Route）的名称；【也可以用to.path !== "/login"】
@@ -35,29 +35,30 @@ router.beforeEach(async (to, from, next) => {
    */
   if (isAuthenticated) {
     // 有token
-    if (store.getters.routes.length === 0) {
-      // 获取用户权限
-      await store.dispatch("permission/authenticateUser");
-    }
-    if (whileRouteList.includes(to.path)){
+    // if (store.getters.routes.length === 0) {
+    //   // 获取用户权限
+    //   await store.dispatch("permission/authenticateUser");
+    // }
+    if (whileRouteList.includes(to.path)) {
       next();
       // next({path: to.path});
       NProgress.done();
     } else {
       const getUserInfo = store.getters.getUserInfo;
-      if (getUserInfo.userId) {
+      console.log("user info :", store.getters);
+      if (getUserInfo && getUserInfo.userId) {
         next();
       } else {
         try {
           // 获取登录的用户信息
           await store.dispatch("userInfo/getInfo");
           next();
-        }catch(error) {
+        } catch (error) {
           await store.dispatch("userInfo/resetToken");
           Message.error(error || "未获得登录用户信息，请重新登录。");
           // next(`/login?redirect=${to.path}`);
           next({
-            path: '/login', // 没有token就跳转登录页面
+            path: "/login", // 没有token就跳转登录页面
             query: {
               redirect: to.fullPath // 需要重定向的路由，在/login这个组件中跳转页面
             }
@@ -68,7 +69,7 @@ router.beforeEach(async (to, from, next) => {
     }
   } else {
     // 没有token
-    if (whileRouteList.includes(to.path)){
+    if (whileRouteList.includes(to.path)) {
       next();
       NProgress.done();
     } else {

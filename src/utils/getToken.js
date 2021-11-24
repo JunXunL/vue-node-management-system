@@ -1,10 +1,10 @@
 /*
  * @Descripttion: 存取Cookie
- * @version: 
+ * @version:
  * @Author: Irene.Z
  * @Date: 2020-11-17 09:52:40
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-02-18 17:12:48
+ * @LastEditTime: 2021-11-25 02:53:40
  */
 
 /**
@@ -34,9 +34,9 @@
  * 也可以使用：Cookie.getJSON('userInfo');
  */
 
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
-const CURRENT_USER = 'vue_node_managesys_user_token';
+const CURRENT_USER = "vue_node_managesys_user_token";
 
 export function getToken(key) {
   return key ? Cookies.get(key) : Cookies.get(CURRENT_USER);

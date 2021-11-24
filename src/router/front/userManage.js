@@ -2,7 +2,7 @@
  * @Descripttion: 普通用户平台，普通用户个人中心
  * @Author: Irene.Z
  * @Date: 2021-09-22 00:27:44
- * @LastEditTime: 2021-09-22 00:39:23
+ * @LastEditTime: 2021-11-25 02:49:46
  * @FilePath: \vue-node-management-system\src\router\front\userManage.js
  */
 export default {
@@ -25,7 +25,7 @@ export default {
       component: () => import("@views/frontEnd/user/Edit"),
       meta: {
         title: "修改个人信息",
-        activeMenu: "/frontEnd/user/Index"
+        activeMenu: "/frontEnd/user/Index",
       }
     },
     // {
@@ -35,4 +35,4 @@ export default {
     //   component: () => import("@views/frontEnd/user/detail")
     // }
   ]
-};
+}

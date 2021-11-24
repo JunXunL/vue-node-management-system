@@ -2,7 +2,7 @@
  * @Descripttion:登录
  * @Author: Irene.Z
  * @Date: 2020-12-07 16:30:43
- * @LastEditTime: 2021-09-21 22:41:09
+ * @LastEditTime: 2021-11-25 02:59:25
  * @FilePath: \vue-node-management-system\src\views\entrance\login.vue
 -->
 <template>
@@ -13,7 +13,7 @@
           <el-input v-model="form.account" />
         </el-form-item>
         <el-form-item label="密码" prop="pass">
-          <el-input v-model="form.pass" ref="password" type="password" autocomplete="off" />
+          <el-input ref="password" v-model="form.pass" type="password" autocomplete="off" />
           <!-- <span class="show-pwd" @click="showPwd" >
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
           </span> -->
@@ -36,50 +36,50 @@
   </div>
 </template>
 <script>
-import _CryptoJS from '@utils/CryptoJS';
+import _CryptoJS from "@utils/CryptoJS"
 // import { setToken } from '@utils/getToken';
 // import { mapGetters, mapState } from 'vuex';
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'));
+      if (value === "") {
+        callback(new Error("请输入密码"))
       } else {
         // if (this.form.pass !== '') {
         //   this.$refs.loinForm.validateField('pass');
         // }
-        callback();
+        callback()
       }
-    };
+    }
     return {
       verifyLoadState: false,
-      verifiy: '/api/svg',
+      verifiy: "/api/svg",
       form: {
-        account: '',
-        pass: '',
-        security: ''
+        account: "",
+        pass: "",
+        security: ""
       },
       rules: {
         account: [
-          { required: true, message: '请输入手机号或邮箱', trigger: 'blur' },
-          { min: 1, max: 20, message: '长度在 5 到 20 个字符', trigger: 'blur' }
+          { required: true, message: "请输入手机号或邮箱", trigger: "blur" },
+          { min: 1, max: 20, message: "长度在 5 到 20 个字符", trigger: "blur" }
         ],
         pass: [
-          { required: true, validator: validatePass, trigger: 'blur' }
+          { required: true, validator: validatePass, trigger: "blur" }
         ]
       },
       loading: false,
       passwordType: "password",
-      redirect: undefined, // 重定向url
-    };
+      redirect: undefined // 重定向url
+    }
   },
   watch: {
     $route: {
-      handler: function (route) {
-        this.redirect = route.query && route.query.redirect;
+      handler: function(route) {
+        this.redirect = route.query && route.query.redirect
       },
-      immediate: true,
-    },
+      immediate: true
+    }
   },
   methods: {
     // ...mapMutations([
@@ -100,7 +100,7 @@ export default {
       }
       this.$nextTick(() => {
         this.$refs.password.focus();
-      });
+      })
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -111,6 +111,7 @@ export default {
             password: _CryptoJS.encrypt(this.form.pass), // 加密
             security: this.form.security
           }
+
           this.$store
             .dispatch("userInfo/login", form)
             .then(() => {
@@ -123,13 +124,13 @@ export default {
               // 验证出错误时重新更新验证码
               this.getCaptcha();
               this.loading = false;
-            });
+            })
         } else {
-          console.log('error submit!!');
+          console.log("error submit!!");
           this.getCaptcha();
-          return false;
+          return false
         }
-      });
+      })
     },
     resetForm(formName) {
       // 重置表单
@@ -139,11 +140,11 @@ export default {
     getCaptcha(e) {
       // 每次指定的src要不一样，img才会重新请求，可以使用Date.now()小技巧
       // this.$refs.captcha.src = 'http://localhost:3000/svg?time=' + Date.now()
-      if (!this.verifyLoadState) return;
+      if (!this.verifyLoadState) return
       // 防止下一次重复点击
       this.verifyLoadState = false;
-      const timeStamp = e ? e.timeStamp : new Date.now();
-      this.verifiy = this.verifiy + '?' + timeStamp;
+      const timeStamp = e ? e.timeStamp : new Date.Now();
+      this.verifiy = this.verifiy + "?" + timeStamp;
     }
   }
 }

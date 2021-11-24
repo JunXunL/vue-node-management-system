@@ -2,7 +2,7 @@
  * @Descripttion:
  * @Author: Irene.Z
  * @Date: 2020-12-07 16:30:51
- * @LastEditTime: 2021-09-21 22:10:41
+ * @LastEditTime: 2021-11-25 02:59:56
  * @FilePath: \vue-node-management-system\src\views\entrance\register.vue
 -->
 <template>
@@ -37,117 +37,117 @@ export default {
   data() {
     var checkAge = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('年龄不能为空'));
+        return callback(new Error("年龄不能为空"))
       }
       setTimeout(() => {
         if (!Number.isInteger(value)) {
-          callback(new Error('请输入数字值'));
+          callback(new Error("请输入数字值"))
         } else {
           if (value < 18) {
-            callback(new Error('必须年满18岁'));
+            callback(new Error("必须年满18岁"))
           } else {
-            callback();
+            callback()
           }
         }
-      }, 1000);
-    };
+      }, 1000)
+    }
     var validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'));
+      if (value === "") {
+        callback(new Error("请输入密码"))
       } else {
-        if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass');
+        if (this.ruleForm.checkPass !== "") {
+          this.$refs.ruleForm.validateField("checkPass")
         }
-        callback();
+        callback()
       }
-    };
+    }
     var validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'));
+      if (value === "") {
+        callback(new Error("请再次输入密码"))
       } else if (value !== this.ruleForm.pass) {
-        callback(new Error('两次输入密码不一致!'));
+        callback(new Error("两次输入密码不一致!"))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
     return {
       ruleForm: {
-        name: '',
-        pass: '',
-        checkPass: '',
-        age: '',
-        email: ''
+        name: "",
+        pass: "",
+        checkPass: "",
+        age: "",
+        email: ""
       },
       rules: {
         name: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { required: true, message: "请输入活动名称", trigger: "blur" },
+          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ],
         pass: [
-          { required: true, validator: validatePass, trigger: 'blur' }
+          { required: true, validator: validatePass, trigger: "blur" }
         ],
         checkPass: [
-          { required: true, validator: validatePass2, trigger: 'blur' }
+          { required: true, validator: validatePass2, trigger: "blur" }
         ],
         age: [
-          { validator: checkAge, trigger: 'blur' }
+          { validator: checkAge, trigger: "blur" }
         ]
-      },
+      }
 
-    };
+    }
   },
   methods: {
     submitForm(formName) {
       const loading = this.$loading({
         lock: true,
-        text: 'Loading',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.5)'
-      });
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.5)"
+      })
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.addUser(this.ruleForm).then(res => {
-            console.log('success res', res)
+            console.log("success res", res)
             if (res.success) {
               this.$notify({
-                title: '注册成功',
-                message: '关闭此提示信息即可进入登录页。',
-                type: 'success',
+                title: "注册成功",
+                message: "关闭此提示信息即可进入登录页。",
+                type: "success",
                 onClose: () => {
-                  console.log('00000000000000000000000')
-                  loading.close();
-                  this.$router.replace('/login')
+                  console.log("00000000000000000000000")
+                  loading.close()
+                  this.$router.replace("/login")
                 }
-              });
+              })
             } else {
               this.$notify({
-                type: 'error',
-                title: '注册失败',
-                message: '注册失败'
-              });
+                type: "error",
+                title: "注册失败",
+                message: "注册失败"
+              })
             }
           }).catch(res => {
             this.$notify({
-              type: 'error',
-              title: '注册失败',
-              message: '服务器未响应，请稍后再试。'
-            });
-          });
+              type: "error",
+              title: "注册失败",
+              message: "服务器未响应，请稍后再试。"
+            })
+          })
         } else {
           this.$notify({
-            type: 'error',
-            title: '注册失败',
-            message: '填写信息有误，请审核。'
-          });
-          return false;
+            type: "error",
+            title: "注册失败",
+            message: "填写信息有误，请审核。"
+          })
+          return false
         }
-      });
+      })
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields()
     },
     async addUser(form) {
-      return await this.$http.post('/api/user/add', form)
+      return await this.$http.post("/api/user/add", form)
     }
   }
 }

@@ -2,10 +2,10 @@
  * @Descripttion: axios封装
  * @Author: Irene.Z
  * @Date: 2020-12-15 19:24:16
- * @LastEditTime: 2021-09-21 16:22:58
+ * @LastEditTime: 2021-11-25 02:54:12
  * @FilePath: \vue-node-management-system\src\utils\http.js
  */
-import axios from 'axios';
+import axios from "axios";
 // import Qs from 'qs'; // 没用到
 
 // 配置不同的环境进行区分不同的接口地址
@@ -54,7 +54,7 @@ http.interceptors.request.use(function(config) {
   if (store.getters.token) {
     // 判断是否存在token，如果存在的话，则每个http header都加上token。（让每个请求的header携带token-- ['X-Token']为自定义key 请根据实际情况自行修改）
     // 其后每个 http request 访问后端服务，后端服务可以根据token获取当前登录的用户信息！！！
-    config.headers['Access-Token'] = getToken();
+    config.headers["Access-Token"] = getToken();
   }
 
   // if (config.method=='post'){
@@ -82,7 +82,7 @@ http.interceptors.response.use((response) => {
    * code: 2 服务器返回：请求的数据有问题、数据处理有问题
    */
   if (res.code * 1 !== 0) {
-    console.log('响应拦截器: ', res)
+    console.log("响应拦截器: ", res);
     // this.$notify({
     //   type: 'error',
     //   title: res.code,
@@ -91,7 +91,7 @@ http.interceptors.response.use((response) => {
     // });
     // sysMsgToast(res, false);
     // 使用promise过程中报Uncaught (in promise)错误，在后面加上.catch((e) => {})，就不会报错了
-    return Promise.reject(new Error(res.message || 'Error')).catch((e) => {});
+    return Promise.reject(new Error(res.message || "Error")).catch((e) => {});
   } else {
     return res; // code：0 成功信息
   }
@@ -101,14 +101,14 @@ http.interceptors.response.use((response) => {
     // do something 这里的处理方式，需要要和后端统一约定好再进一步晚上处理方式
     switch (err.response.status) {
       case 401: // 登录失效逻辑
-        store.dispatch('user/resetToken').then(() => {
+        store.dispatch("user/resetToken").then(() => {
           location.reload();
         });
         break;
       default: err.message = `连接错误${err.response.status}`;
     }
   } else {
-    err.message = '连接到服务器失败';
+    err.message = "连接到服务器失败";
     // 服务器没有响应。1 服务器崩了。2 客户端断网了
     if (!window.navigator.onLine) {
       // 客户端断网了，可以跳转到一个断网页面
